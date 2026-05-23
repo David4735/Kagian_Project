@@ -1,12 +1,22 @@
-#сгенерировать таблицу в которой элементы больше 10 заменяются на нуль
-i = int(input())
-j = int(input())
+#Сгенерировать матрицу, в которой элементы больше 10 заменяются на 0.
+import random
 
-matrix = [[random.randint(1, 15) for _ in range(j)] for _ in range(i)]
+m1 = [[random.randint(0, 20) for i in range(5)] for i in range(4)]
 
-for row in matrix:
-    print(row)
+print("Исходная матрица:")
+for r in m1:
+    print(r)
 
-row = [[0 if x > 10 else x for x in row] for row in matrix ]
-for i in row:
-  print(i)
+m2 = []
+for r in m1:
+    n = []
+    for x in r:
+        if x > 10:
+            n.append(0)
+        else:
+            n.append(x)
+    m2.append(n)
+
+print("Результат:")
+for r in m2:
+    print(r)

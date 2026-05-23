@@ -1,14 +1,15 @@
-#В матрице элементы первого элемента возвести в куб
+#В матрице элементы первого столбца возвести в куб.
 import random
 
-i = int(input())
-j = int(input())
+m = [[random.randint(1, 10) for i in range(4)] for i in range(3)]
 
-matrix = [[random.randint(1, 10) for _ in range(j)] for _ in range(i)]
+print("Исходная матрица:")
+for r in m:
+    print(r)
 
-for row in matrix:
-    print(row)
+for i in range(3):
+    m[i][0] = m[i][0] ** 3 #возводим в 3 степень
 
-row = matrix[0]
-row = [i**3 for i in row ]
-print(row)
+print("Результат:")
+for r in m:
+    print(r)
