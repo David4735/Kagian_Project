@@ -1,15 +1,12 @@
 #В матрице элементы первого столбца возвести в куб.
 import random
 
-m = [[random.randint(1, 10) for i in range(4)] for i in range(3)]
+m = [[random.randint(1, 10) for _ in range(4)] for _ in range(3)]
 
 print("Исходная матрица:")
-for r in m:
-    print(r)
+list(map(lambda r: print(r), m))
 
-for i in range(3):
-    m[i][0] = m[i][0] ** 3 #возводим в 3 степень
+m = list(map(lambda row, i: [row[0]**3 if j == 0 else row[j] for j in range(len(row))], m, range(3)))
 
 print("Результат:")
-for r in m:
-    print(r)
+list(map(lambda r: print(r), m))
