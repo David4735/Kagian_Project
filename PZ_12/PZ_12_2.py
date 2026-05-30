@@ -1,21 +1,15 @@
 #Сгенерировать матрицу, в которой элементы больше 10 заменяются на 0.
 import random
 
-m1 = [[random.randint(0, 20) for i in range(5)] for i in range(4)]
+m1 = [[random.randint(0, 20) for _ in range(5)] for _ in range(4)]
 
 print("Исходная матрица:")
-for r in m1:
-    print(r)
+list(map(lambda r: print(r), m1))
 
-m2 = []
-for r in m1:
-    n = []
-    for x in r:
-        if x > 10:
-            n.append(0)
-        else:
-            n.append(x)
-    m2.append(n)
+m2 = list(map(lambda row: list(map(lambda x: 0 if x > 10 else x, row)), m1))
+
+print("Результат:")
+list(map(lambda r: print(r), m2))
 
 print("Результат:")
 for r in m2:
