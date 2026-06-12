@@ -1,23 +1,47 @@
-# Вариант 6.
-# Из исходного текстового файла (ip_address.txt) из раздела «Зарезервированные
-# адреса» перенести в первый файл строки с ненулевыми первым и вторым октетами,
-# а во второй – все остальные. Посчитать количество полученных строк в каждом файле.
-
 import re
 
-with open('ip_address.txt', 'r', encoding='utf-8') as f:
-    section = re.search(r'Зарезервированные адреса\s+((?:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(?:/\d{1,2})?\s*)+)', f.read())
+i = "ip_address.txt"
+o1 = "reserved_nonzero.txt"
+o2 = "reserved_other.txt"
 
-addresses = re.findall(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(?:/\d{1,2})?', section.group(1))
+with open(i, "r", encoding="utf-8") as f:
+    l = f.readlines()
 
-# Отбираем адреса, у которых первый И второй октеты ненулевые
-nonzero = [a for a in addresses if not a.startswith('0.') and not re.match(r'\d+\.0\.', a)]
-zero = [a for a in addresses if a not in nonzero]
+p = re.compile(r"\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b")
 
-with open('file1.txt', 'w') as f:
-    f.write('\n'.join(nonzero))
-with open('file2.txt', 'w') as f:
-    f.write('\n'.join(zero))
+r1 = []
+r2 = []
+c1 = 0
+c2 = 0
+s = False
 
-print(f"Строки с ненулевыми первым и вторым октетами: {len(nonzero)}")
-print(f"Строки с нулевым первым или вторым октетом: {len(zero)}")
+for n in l:
+    if "Зарезервированные адреса" in n:
+        s = True
+        continue
+    if not s:
+        continue
+    if n.strip() == "":
+        continue
+    m = p.search(n)
+    if m:
+        o1v = int(m.group(1))
+        o2v = int(m.group(2))
+        if o1v != 0 and o2v != 0:
+            r1.append(n)
+            c1 += 1
+        else:
+            r2.append(n)
+            c2 += 1
+    else:
+        r2.append(n)
+        c2 += 1
+
+with open(o1, "w", encoding="utf-8") as f:
+    f.writelines(r1)
+
+with open(o2, "w", encoding="utf-8") as f:
+    f.writelines(r2)
+
+print(f"Первый файл ({o1}): {c1} строк")
+print(f"Второй файл ({o2}): {c2} строк")
