@@ -3,62 +3,70 @@
 #такие как вычисление площади и периметра, а классы-наследники будут иметь
 #специфичные методы и свойства. 
 import math
-import random
 
 class Figure:
-    def set_square(self, a):
-        self.type = "квадрат"
-        self.a = a
-    
-    def set_rectangle(self, a, b):
-        self.type = "прямоугольник"
-        self.a = a
-        self.b = b
-    
-    def set_circle(self, r):
-        self.type = "круг"
-        self.r = r
-    
     def area(self):
-        if self.type == "квадрат":
-            return self.a ** 2
-        elif self.type == "прямоугольник":
-            return self.a * self.b
-        elif self.type == "круг":
-            return math.pi * self.r ** 2
+        pass
     
     def perimeter(self):
-        if self.type == "квадрат":
-            return self.a * 4
-        elif self.type == "прямоугольник":
-            return 2 * (self.a + self.b)
-        elif self.type == "круг":
-            return 2 * math.pi * self.r
+        pass
     
     def info(self):
-        if self.type == "квадрат":
-            return f"Квадрат со стороной {self.a}"
-        elif self.type == "прямоугольник":
-            return f"Прямоугольник {self.a}x{self.b}"
-        elif self.type == "круг":
-            return f"Круг радиусом {self.r}"
+        return f"Фигура: {self.__class__.__name__}"
 
-s = Figure()
-s.set_square(random.randint(1, 20))
+class Square(Figure):
+    def __init__(self, side):
+        self.side = side
+    
+    def area(self):
+        return self.side ** 2
+    
+    def perimeter(self):
+        return self.side * 4
+    
+    def info(self):
+        return f"Квадрат со стороной {self.side}"
 
-r = Figure()
-r.set_rectangle(random.randint(1, 20), random.randint(1, 20))
+class Rectangle(Figure):
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+    
+    def area(self):
+        return self.width * self.height
+    
+    def perimeter(self):
+        return 2 * (self.width + self.height)
+    
+    def info(self):
+        return f"Прямоугольник {self.width}x{self.height}"
 
-c = Figure()
-c.set_circle(random.randint(1, 20))
+class Circle(Figure):
+    def __init__(self, radius):
+        self.radius = radius
+    
+    def area(self):
+        return math.pi * self.radius ** 2
+    
+    def perimeter(self):
+        return 2 * math.pi * self.radius
+    
+    def info(self):
+        return f"Круг радиусом {self.radius}"
+
+s = Square(5)
+r = Rectangle(4, 6)
+c = Circle(3)
 
 print(s.info())
 print(f"Площадь: {s.area()}")
-print(f"Периметр: {s.perimeter()}\n")
+print(f"Периметр: {s.perimeter()}")
+print()
 
 print(r.info())
 print(f"Площадь: {r.area()}")
-print(f"Периметр: {r.perimeter()}\n")
+print(f"Периметр: {r.perimeter()}")
+print()
 
 print(c.info())
 print(f"Площадь: {c.area():.2f}")
