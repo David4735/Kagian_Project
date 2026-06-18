@@ -5,17 +5,21 @@
 import math
 
 class Figure:
+    def __init__(self, name):
+        self.name = name
+    
     def area(self):
-        pass
+        return 0
     
     def perimeter(self):
-        pass
+        return 0
     
     def info(self):
-        return f"Фигура: {self.__class__.__name__}"
+        return f"{self.name}: площадь = {self.area():.2f}, периметр = {self.perimeter():.2f}"
 
 class Square(Figure):
     def __init__(self, side):
+        super().__init__("Квадрат")
         self.side = side
     
     def area(self):
@@ -24,11 +28,12 @@ class Square(Figure):
     def perimeter(self):
         return self.side * 4
     
-    def info(self):
-        return f"Квадрат со стороной {self.side}"
+    def diagonal(self):
+        return self.side * math.sqrt(2)
 
 class Rectangle(Figure):
     def __init__(self, width, height):
+        super().__init__("Прямоугольник")
         self.width = width
         self.height = height
     
@@ -38,11 +43,12 @@ class Rectangle(Figure):
     def perimeter(self):
         return 2 * (self.width + self.height)
     
-    def info(self):
-        return f"Прямоугольник {self.width}x{self.height}"
+    def is_square(self):
+        return self.width == self.height
 
 class Circle(Figure):
     def __init__(self, radius):
+        super().__init__("Круг")
         self.radius = radius
     
     def area(self):
@@ -51,23 +57,18 @@ class Circle(Figure):
     def perimeter(self):
         return 2 * math.pi * self.radius
     
-    def info(self):
-        return f"Круг радиусом {self.radius}"
+    def diameter(self):
+        return self.radius * 2
 
 s = Square(5)
 r = Rectangle(4, 6)
 c = Circle(3)
 
 print(s.info())
-print(f"Площадь: {s.area()}")
-print(f"Периметр: {s.perimeter()}")
-print()
+print(f"Диагональ: {s.diagonal():.2f}\n")
 
 print(r.info())
-print(f"Площадь: {r.area()}")
-print(f"Периметр: {r.perimeter()}")
-print()
+print(f"Это квадрат: {r.is_square()}\n")
 
 print(c.info())
-print(f"Площадь: {c.area():.2f}")
-print(f"Периметр: {c.perimeter():.2f}")
+print(f"Диаметр: {c.diameter()}")
