@@ -1,26 +1,22 @@
-title = ""
-author = ""
-pages = 0
-page = 0
+#Создайте класс «Книга», который имеет атрибуты название, автор и количество
+#страниц. Добавьте методы для чтения и записи книги.
+class Book:
+    def __init__(self, title, author, pages):
+        self.title = title
+        self.author = author
+        self.pages = pages
+        self.current_page = 0
 
-def book(t, a, p):
-    global title, author, pages, page
-    title = t
-    author = a
-    pages = p
-    page = 0
+    def read(self, n):
+        self.current_page += n
+        if self.current_page > self.pages:
+            self.current_page = self.pages
+        print(f"Прочитано {self.current_page} из {self.pages} страниц")
 
-def read(n):
-    global page, pages
-    page = page + n
-    if page > pages:
-        page = pages
-    print(page, "из", pages)
+    def write(self, text):
+        print(f"Запись в книгу '{self.title}': {text}")
 
-def write(text):
-    print(text)
-
-book("1984", "Оруэлл", 328)
-read(50)
-read(100)
-write("заметка")
+b = Book("1984", "Джордж Оруэлл", 328)
+b.read(50)
+b.read(100)
+b.write("Важная заметка")
